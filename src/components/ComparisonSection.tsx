@@ -88,15 +88,15 @@ export const ComparisonSection: React.FC<Props> = ({ variant, theme }) => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
         <Col
           label="Opción 1"
-          name="Abogado tradicional"
-          {...c.traditional}
+          name={c.labels?.traditional ?? 'Abogado tradicional'}
+          {...(({ ...rest }) => rest)(c.traditional)}
           mark="✕"
           markColor="text-rose-500"
           priceColor="text-rose-500"
         />
         <Col
           label="Opción 2"
-          name="IA genérica (ChatGPT, etc.)"
+          name={c.labels?.generic ?? 'IA genérica (ChatGPT, etc.)'}
           {...c.generic}
           mark="⚠"
           markColor="text-amber-500"

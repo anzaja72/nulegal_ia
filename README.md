@@ -25,6 +25,7 @@ Si cambias precios o textos del FAQ, edita `src/data/legalQueriesData.ts` y `src
 | `dist-sites/legal-ia/` | legal-ia.co | Abogados y firmas |
 | `dist-sites/emprendedor/` | emprendedor.legal-ia.co | Emprendedores y pymes |
 | `dist-sites/contador/` | contador.legal-ia.co | Contadores (especialista Tributar-ia) |
+| `dist-sites/estados/` | estados.legal-ia.co | Seguimiento de procesos: estados y radicado |
 
 Cada carpeta incluye su `index.html` prerenderizado, `robots.txt`, `sitemap.xml`, `llms.txt` y `_headers`.
 El dominio base se puede cambiar con `SITE_DOMAIN=otro.com npm run build`. Los textos por audiencia están en

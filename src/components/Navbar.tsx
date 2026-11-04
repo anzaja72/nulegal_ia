@@ -3,7 +3,7 @@ import { LegalIALogo } from './LegalIALogo.tsx';
 import { Coins, Sparkles, Shield, ArrowUpRight } from 'lucide-react';
 
 interface NavbarProps {
-  variant: 1 | 2 | 3;
+  variant: 1 | 2 | 3 | 4;
   credits: number;
   onOpenRechargeModal: () => void;
   onOpenQueries: () => void;

@@ -18,6 +18,7 @@ export default defineConfig(() => {
           resultado: path.resolve(__dirname, 'resultado.html'),
           manifiesto: path.resolve(__dirname, 'manifiesto.html'),
           'en-vivo': path.resolve(__dirname, 'en-vivo.html'),
+          estados: path.resolve(__dirname, 'estados.html'),
         },
       },
     },

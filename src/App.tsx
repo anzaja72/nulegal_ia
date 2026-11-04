@@ -7,6 +7,7 @@ import React, { useState } from 'react';
 import { Navbar } from './components/Navbar.tsx';
 import { HeroResult } from './components/HeroResult.tsx';
 import { HeroManifesto } from './components/HeroManifesto.tsx';
+import { HeroEstados } from './components/HeroEstados.tsx';
 import { HeroLiveInteractive } from './components/HeroLiveInteractive.tsx';
 import { QueriesExplorer2026 } from './components/QueriesExplorer2026.tsx';
 import { PricingPayAsYouGo } from './components/PricingPayAsYouGo.tsx';
@@ -22,8 +23,9 @@ interface AppProps {
    * 1: /resultado/  ("El Resultado")
    * 2: /manifiesto/ ("Manifiesto")
    * 3: /en-vivo/    ("En Vivo")
+   * 4: estados      (seguimiento de procesos)
    */
-  variant: 1 | 2 | 3;
+  variant: 1 | 2 | 3 | 4;
 }
 
 export default function App({ variant }: AppProps) {
@@ -31,7 +33,7 @@ export default function App({ variant }: AppProps) {
   // Starting balance: 200 credits (mandated $40 = 200 credits plan)
   const [credits, setCredits] = useState<number>(200);
   const [isRechargeModalOpen, setIsRechargeModalOpen] = useState(false);
-  const [preselectedQueryId, setPreselectedQueryId] = useState<string>(variant === 3 ? 'tributario-comercio' : 'antecedentes');
+  const [preselectedQueryId, setPreselectedQueryId] = useState<string>(variant === 3 ? 'tributario-comercio' : variant === 4 ? 'procesos-judiciales' : 'antecedentes');
   const [toastMessage, setToastMessage] = useState<{ text: string; type: 'success' | 'info' | 'error' } | null>(null);
 
   const showToast = (text: string, type: 'success' | 'info' | 'error' = 'success') => {
@@ -119,6 +121,16 @@ export default function App({ variant }: AppProps) {
           />
         )}
 
+        {variant === 4 && (
+          <HeroEstados
+            userCredits={credits}
+            onDeductCredits={handleDeductCredits}
+            onOpenRechargeModal={() => setIsRechargeModalOpen(true)}
+            onGoToQueries={() => scrollToSection('consultas-2026')}
+            onGoToPricing={() => scrollToSection('pricing')}
+          />
+        )}
+
         {variant === 3 && (
           <HeroLiveInteractive
             userCredits={credits}
@@ -131,7 +143,7 @@ export default function App({ variant }: AppProps) {
         )}
 
         {/* Document Types Grid (Common across views) */}
-        <DocumentTypesGrid variant={variant} onDraftClick={handleDraftDocumentInChat} />
+        {variant !== 4 && <DocumentTypesGrid variant={variant} onDraftClick={handleDraftDocumentInChat} />}
 
         {/* November 2026 Tested Queries Catalog & Interactive Executor */}
         <QueriesExplorer2026

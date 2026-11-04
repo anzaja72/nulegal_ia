@@ -3,10 +3,13 @@
  *   1 · legal-ia.co               → abogados que quieren acelerar su flujo de trabajo
  *   2 · emprendedor.legal-ia.co   → emprendedores y pymes sin presupuesto para un abogado de planta
  *   3 · contador.legal-ia.co      → contadores y asesores tributarios, con el especialista Tributar-ia
+ *   4 · estados.legal-ia.co       → abogados que siguen procesos: estados y consulta por radicado
  */
-export type Variant = 1 | 2 | 3;
+export type Variant = 1 | 2 | 3 | 4;
 
 export interface ComparisonCopy {
+  /** Nombres de las dos primeras opciones si difieren de los predeterminados. */
+  labels?: { traditional: string; generic: string };
   heading: string;
   subheading: string;
   traditional: { price: string; priceUnit: string; points: string[]; footer: string };
@@ -135,6 +138,43 @@ export const COMPARISON: Record<Variant, ComparisonCopy> = {
       ],
       footer: 'Especialista tributario, verificado a noviembre de 2026 y con privacidad ZDR.'
     }
+  },
+  4: {
+    labels: { traditional: 'Revisión manual', generic: 'IA genérica (ChatGPT, etc.)' },
+    heading: 'Tres formas de saber si tu proceso se movió',
+    subheading:
+      'Entrar despacho por despacho consume tu día y una IA genérica no puede revisar los estados en tiempo real. Compara las alternativas.',
+    traditional: {
+      price: 'Horas de tu semana',
+      priceUnit: '/ cartera de procesos',
+      points: [
+        'Revisar los estados de cada despacho, uno por uno, todos los días.',
+        'Riesgo de que un auto con términos pase sin que lo veas a tiempo.',
+        'Cada proceso nuevo en tu cartera suma más tiempo de revisión.'
+      ],
+      footer: 'Lento, repetitivo y fácil de olvidar.'
+    },
+    generic: {
+      price: '$20 USD/mes',
+      priceUnit: '/ suscripción pasiva',
+      points: [
+        'No consulta en tiempo real los estados ni los procesos de la Rama Judicial.',
+        'Puede inventar actuaciones o autos que no existen.',
+        ...GENERIC_PRIVACY
+      ],
+      footer: 'Peligroso para el seguimiento de procesos y para la reserva de tus clientes.'
+    },
+    legalia: {
+      price: '3 créditos',
+      priceUnit: 'por consulta',
+      points: [
+        'Le das el radicado al chat y revisa los estados de los últimos 5 días hábiles.',
+        'Si salió en estado: número de estado, fecha y anotación del auto.',
+        'Consulta también la información del proceso publicada en la Rama Judicial.',
+        LEGALIA_ZDR
+      ],
+      footer: 'Si una fuente no responde, te lo dice. Nunca informa «sin movimiento» por error.'
+    }
   }
 };
 
@@ -159,6 +199,13 @@ export const HERO: Record<Variant, HeroCopy> = {
     headlineAccent: 'tributario y contable.',
     lead:
       'Consulta la doctrina de la DIAN con el texto íntegro, revisa 10 años de importaciones y exportaciones de un NIT y resuelve las dudas tributarias de tus clientes con un especialista que trabaja cuando tú lo necesitas.'
+  },
+  4: {
+    eyebrow: 'Para abogados que siguen procesos · Colombia',
+    headline: '¿Se movió tu proceso?',
+    headlineAccent: 'Pregúntale al chat con el radicado.',
+    lead:
+      'Dale a Legal-IA el número de radicado y revisa en segundos los estados de los últimos 5 días hábiles, además de la información del proceso publicada en la Rama Judicial.'
   }
 };
 
@@ -189,5 +236,11 @@ export const DOCS_SECTION: Record<Variant, { kicker: string; title: string; intr
     title: 'Peticiones y solicitudes listas para presentar',
     intro:
       'Cuando una consulta termina en una actuación formal, como un derecho de petición o una solicitud administrativa, Legal-IA redacta el documento con la normatividad vigente.'
+  },
+  4: {
+    kicker: 'MÁS ALLÁ DEL SEGUIMIENTO',
+    title: 'Cuando el proceso se mueve, el documento sigue',
+    intro:
+      'Si un auto exige respuesta, Legal-IA redacta el documento con la normatividad vigente. Tú revisas y radicas.'
   }
 };

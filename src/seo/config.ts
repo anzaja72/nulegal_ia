@@ -8,6 +8,7 @@ import { PAY_AS_YOU_GO_TIERS, NOVEMBER_2026_QUERIES, QUERY_COST_GUIDE } from '..
  *   legal-ia.co              → abogados            (slug "resultado",  variante 1)
  *   emprendedor.legal-ia.co  → emprendedores/pymes (slug "manifiesto", variante 2)
  *   contador.legal-ia.co     → contadores          (slug "en-vivo",    variante 3)
+ *   estados.legal-ia.co      → seguimiento de procesos (slug "estados", variante 4)
  * El dominio base se puede cambiar al compilar:  SITE_DOMAIN=otro-dominio.com npm run build
  */
 export const SITE_DOMAIN =
@@ -20,8 +21,8 @@ export const OG_IMAGE = '/og-image.png';
 export const LOGO = '/logo.png';
 
 export interface SiteSeo {
-  slug: 'resultado' | 'manifiesto' | 'en-vivo';
-  variant: 1 | 2 | 3;
+  slug: 'resultado' | 'manifiesto' | 'en-vivo' | 'estados';
+  variant: 1 | 2 | 3 | 4;
   host: string;
   /** URL canónica (raíz del sitio). */
   url: string;
@@ -70,6 +71,18 @@ export const SITES: SiteSeo[] = [
       'Consulta la doctrina de la DIAN con texto íntegro y 10 años de comercio exterior de un NIT. Pagas por consulta, con privacidad ZDR.',
     indexable: true,
   },
+  {
+    slug: 'estados',
+    variant: 4,
+    host: `estados.${SITE_DOMAIN}`,
+    url: `https://estados.${SITE_DOMAIN}/`,
+    outDir: 'estados',
+    audience: 'Seguimiento de procesos judiciales',
+    title: 'Legal-IA Estados · Consulta si tu proceso se movió',
+    description:
+      'Dale el radicado de 23 dígitos a Legal-IA y revisa los estados de los últimos 5 días hábiles y la información del proceso en la Rama Judicial. Privacidad ZDR.',
+    indexable: true,
+  },
 ];
 
 /** Enlaces entre sitios (footer): enlazado interno útil para usuarios y buscadores. */
@@ -103,6 +116,14 @@ export const FAQ: { q: string; a: string }[] = [
   {
     q: '¿Qué pasa con la privacidad de mis datos?',
     a: 'Legal-IA opera con ZDR (Zero Data Retention): lo que escribes y los documentos que generas no se almacenan en el proveedor del modelo ni se usan para entrenarlo. Con una IA genérica como ChatGPT tus datos pueden compartirse para entrenamiento, y cargar datos de clientes o de terceros implica el riesgo de incumplir la Ley 1581 de 2012 (Habeas Data).',
+  },
+  {
+    q: '¿Cómo consulto si mi proceso se movió?',
+    a: 'Escribe el número de radicado de 23 dígitos en el chat de Legal-IA. El chat revisa los estados de los últimos 5 días hábiles y te dice si el proceso se movió. Si salió en estado, te da el número de estado, la fecha y la anotación del auto. También consulta la información del proceso publicada en la Rama Judicial: estado, despacho, partes y actuaciones recientes.',
+  },
+  {
+    q: '¿Qué es el radicado de 23 dígitos?',
+    a: 'Es el número que identifica un proceso judicial en Colombia. Sus bloques indican la ciudad o municipio, la corporación, la especialidad, el despacho, el año, el consecutivo y la instancia.',
   },
   {
     q: '¿Qué es Tributar-ia?',
