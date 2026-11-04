@@ -12,7 +12,9 @@ import {
   ShieldCheck,
   FileText
 } from 'lucide-react';
-import { NOVEMBER_2026_QUERIES } from '../data/legalQueriesData.ts';
+import { NOVEMBER_2026_QUERIES, LEGAL_AGENTS } from '../data/legalQueriesData.ts';
+import { ComparisonSection } from './ComparisonSection.tsx';
+import { HERO } from '../content/audience.ts';
 
 interface Message {
   id: string;
@@ -51,26 +53,25 @@ export const HeroLiveInteractive: React.FC<HeroLiveInteractiveProps> = ({
     {
       id: '1',
       sender: 'user',
-      text: 'La EPS Sanitas me negó un medicamento para la diabetes que mi médico me formuló hace dos semanas. Me dicen que no está en el PBS y que debo pagarlo yo. Tengo 64 años.',
+      text: 'Mi cliente importa insumos desde hace años y quiere saber cuánto ha importado. También necesito ver qué doctrina de la DIAN aplica a su caso. Este es un NIT de ejemplo: 900.123.456-1.',
       timestamp: '10:42 AM'
     },
     {
       id: '2',
       sender: 'assistant',
-      agent: 'Legal-IA · Director de Orquesta',
-      badge: 'Investigando normativa · Derecho de petición, Art. 23 C.P. & Sentencia T-760',
-      text: 'Entendido. Conforme al Art. 23 de la Constitución Política y la Sentencia T-760/08 de la Corte Constitucional, la EPS no puede negar medicamentos esenciales que comprometan tu vida digna. He redactado tu derecho de petición formal con orden urgente de entrega en 48 horas y advertencia de desacato.',
+      agent: 'Tributar-ia · Especialista Tributario y Contable',
+      badge: 'Consultando DIAN · Comercio exterior y Doctrina',
+      text: 'Consulté los datos de comercio exterior del NIT de ejemplo (10 años de importaciones y exportaciones: valor en dólares, peso y partidas arancelarias) y busqué conceptos y oficios de la DIAN relacionados. Te dejo un resumen para revisar. Esta es una conversación de demostración con datos de ejemplo.',
       docReady: {
-        title: 'Derecho de Petición — Medicamentos EPS Sanitas',
+        title: 'Resumen de comercio exterior y doctrina DIAN',
         pages: 2,
-        type: 'PDF Oficial radicación virtual'
+        type: 'Informe de ejemplo'
       },
       creditsDeducted: 1,
-      sourcesInterrogated: ['Corte Constitucional T-760/08', 'ADRES BDUA', 'Ley 1751 de 2015'],
+      sourcesInterrogated: ['DIAN · Comercio exterior', 'DIAN · Doctrina'],
       timestamp: '10:43 AM'
     }
   ]);
-
   const [inputVal, setInputVal] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [activeBadge, setActiveBadge] = useState<string | null>(null);
@@ -82,10 +83,10 @@ export const HeroLiveInteractive: React.FC<HeroLiveInteractiveProps> = ({
   }, [messages, isTyping]);
 
   const quickChips = [
-    { label: 'Antecedentes CC 79.982.140', text: 'Consulta antecedentes penales y disciplinarios de la CC 79.982.140', cost: 1 },
-    { label: 'RUES NIT 900.123.456-1', text: 'Verificar existencia y representación legal de NIT 900.123.456-1 en RUES', cost: 2 },
-    { label: 'RUNT Placa BKS-412', text: 'Consultar estado, SOAT y comparendos de la placa BKS-412 en RUNT/SIMIT', cost: 1 },
-    { label: 'Tutela Salud Sanitas', text: 'Redactar acción de tutela por negación de procedimiento quirúrgico urgente', cost: 5 }
+    { label: 'Doctrina DIAN: IVA', text: 'Buscar doctrina de la DIAN (conceptos y oficios) sobre IVA en servicios', cost: 1 },
+    { label: 'Comercio exterior NIT', text: 'Consulta comercio exterior de 10 años del NIT 900.123.456-1 en la DIAN', cost: 1 },
+    { label: 'Ranking importadores', text: 'Ver el directorio y ranking de importadores y exportadores por sector en la DIAN', cost: 1 },
+    { label: 'RUES NIT 900.123.456-1', text: 'Verificar existencia y representación legal de NIT 900.123.456-1 en RUES', cost: 2 }
   ];
 
   const handleSend = (customText?: string) => {
@@ -96,9 +97,13 @@ export const HeroLiveInteractive: React.FC<HeroLiveInteractiveProps> = ({
     let badgeText = 'Investigando registro oficial en tiempo real...';
     let doc: any = null;
 
-    if (text.toLowerCase().includes('tutela') || text.toLowerCase().includes('contrato') || text.toLowerCase().includes('redact')) {
+    if (text.toLowerCase().includes('dian') || text.toLowerCase().includes('doctrina') || text.toLowerCase().includes('comercio exterior') || text.toLowerCase().includes('importa')) {
+      cost = 1;
+      badgeText = 'Consultando DIAN · Doctrina y Comercio exterior...';
+      doc = { title: 'Resumen de consulta DIAN', pages: 2, type: 'Informe de ejemplo' };
+    } else if (text.toLowerCase().includes('tutela') || text.toLowerCase().includes('contrato') || text.toLowerCase().includes('redact')) {
       cost = 5;
-      badgeText = 'Orquestando 5 agentes · Redacción procesal fundamentada';
+      badgeText = 'Orquestando especialistas · Redacción fundamentada';
       doc = { title: 'Acción de Tutela con Medida Cautelar', pages: 3, type: 'PDF / DOCX Formal' };
     } else if (text.toLowerCase().includes('rues') || text.toLowerCase().includes('nit')) {
       cost = 2;
@@ -137,9 +142,9 @@ export const HeroLiveInteractive: React.FC<HeroLiveInteractiveProps> = ({
         const botMsg: Message = {
           id: (Date.now() + 1).toString(),
           sender: 'assistant',
-          agent: 'Legal-IA · Director de Orquesta',
+          agent: 'Tributar-ia · Especialista Tributario y Contable',
           badge: badgeText,
-          text: `Consulta ejecutada con éxito. Se interrogaron las fuentes verificadas de noviembre 2026 y los 5 especialistas estructuraron el documento definitivo listo para radicar.`,
+          text: `Consulta ejecutada con éxito. Se interrogaron las fuentes verificadas de noviembre 2026 y los especialistas estructuraron el documento. Es una demostración con datos de ejemplo.`,
           docReady: doc,
           creditsDeducted: cost,
           sourcesInterrogated: ['Servidor oficial verificado 2026', 'Constitución Política de Colombia', 'SAMAI'],
@@ -158,6 +163,7 @@ export const HeroLiveInteractive: React.FC<HeroLiveInteractiveProps> = ({
   };
 
   return (
+    <>
     <section className="relative overflow-hidden pt-28 sm:pt-36 pb-24 bg-[#FFFFFF] text-[#1E293B]">
       
       {/* Subtle Sky Blue Ambient Glow */}
@@ -179,37 +185,41 @@ export const HeroLiveInteractive: React.FC<HeroLiveInteractiveProps> = ({
             
             <div className="inline-flex items-center gap-2 bg-[#F0F9FF] border border-[#38B6FF]/30 px-3.5 py-1.5 rounded-full text-xs font-semibold text-[#0072b2]">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span>Entorno en Vivo · Service as Software</span>
+              <span>{HERO[3].eyebrow}</span>
             </div>
 
             <h1 className="font-space font-extrabold text-4xl sm:text-5xl lg:text-6xl text-[#1E293B] tracking-tight leading-[1.08]">
-              Cuéntale tu caso.{' '}
+              {HERO[3].headline}{' '}
               <span className="block text-[#38B6FF]">
-                Recibe el documento.
+                {HERO[3].headlineAccent}
               </span>
             </h1>
 
             <p className="text-slate-600 text-base sm:text-lg leading-relaxed font-normal">
-              Legal-IA te entrevista como un abogado sénior, investiga la normativa colombiana en tiempo real, cruza las 11 fuentes oficiales y redacta el documento con formato forense listo para radicar.
+              {HERO[3].lead}
             </p>
 
             {/* Checklist */}
             <div className="space-y-3 pt-1 text-xs sm:text-sm text-slate-700">
               <div className="flex items-center gap-2.5">
                 <CheckCircle2 className="w-4 h-4 text-[#38B6FF] shrink-0" />
-                <span>Entrevista guiada en lenguaje natural (sin tecnicismos)</span>
+                <span>Doctrina DIAN: conceptos, oficios y providencias con el texto íntegro</span>
               </div>
               <div className="flex items-center gap-2.5">
                 <CheckCircle2 className="w-4 h-4 text-[#38B6FF] shrink-0" />
-                <span>11 Registros Oficiales colombianos probados (RUES, RUNT, SECOP, ADRES...)</span>
+                <span>Comercio exterior: 10 años de importaciones y exportaciones de un NIT</span>
               </div>
               <div className="flex items-center gap-2.5">
                 <CheckCircle2 className="w-4 h-4 text-[#38B6FF] shrink-0" />
-                <span>Documentos generados con citas de leyes y sentencias de la relatoría</span>
+                <span>Directorio DIAN: ranking de importadores y exportadores por sector</span>
               </div>
               <div className="flex items-center gap-2.5">
                 <CheckCircle2 className="w-4 h-4 text-[#38B6FF] shrink-0" />
-                <span>Pay As You Go estricto: <strong>$40 USD = 200 créditos</strong> (sin mensualidades)</span>
+                <span>ZDR (Zero Data Retention): la información de tus clientes no se retiene</span>
+              </div>
+              <div className="flex items-center gap-2.5">
+                <CheckCircle2 className="w-4 h-4 text-[#38B6FF] shrink-0" />
+                <span>Pay As You Go: <strong>$40 USD = 200 créditos</strong>, sin mensualidades</span>
               </div>
             </div>
 
@@ -256,7 +266,7 @@ export const HeroLiveInteractive: React.FC<HeroLiveInteractiveProps> = ({
                       </span>
                     </div>
                     <div className="text-[11px] text-slate-400">
-                      Director de Orquesta + 5 Especialistas en tiempo real
+                      Director de Orquesta + {LEGAL_AGENTS.length} Especialistas, incluido Tributar-ia
                     </div>
                   </div>
                 </div>
@@ -387,7 +397,7 @@ export const HeroLiveInteractive: React.FC<HeroLiveInteractiveProps> = ({
                     type="text"
                     value={inputVal}
                     onChange={(e) => setInputVal(e.target.value)}
-                    placeholder="Describe tu caso (ej: tutela, despido, contrato o CC/NIT/Placa)..."
+                    placeholder="Escribe tu consulta (ej: doctrina DIAN, comercio exterior de un NIT)..."
                     className="flex-1 bg-[#1E293B] border border-slate-700 focus:border-[#38B6FF] rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-400 focus:outline-none font-sans"
                   />
                   <button
@@ -408,5 +418,9 @@ export const HeroLiveInteractive: React.FC<HeroLiveInteractiveProps> = ({
 
       </div>
     </section>
+    <div className="bg-[#1E293B] pt-1 pb-24">
+      <ComparisonSection variant={3} theme="dark" />
+    </div>
+    </>
   );
 };

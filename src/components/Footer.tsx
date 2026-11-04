@@ -1,5 +1,6 @@
 import React from 'react';
 import { LegalIALogo } from './LegalIALogo.tsx';
+import { SITE_LINKS } from '../seo/config.ts';
 import { Shield, ExternalLink, Scale, CheckCircle2, HeartHandshake, Zap } from 'lucide-react';
 
 export const Footer: React.FC = () => {
@@ -36,6 +37,15 @@ export const Footer: React.FC = () => {
             </div>
           </div>
         </div>
+
+        <nav aria-label="Legal-IA para cada audiencia" className="pb-8 mb-8 border-b border-slate-800/60 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs">
+          <span className="font-space font-bold text-white uppercase tracking-wider">Legal-IA para</span>
+          {SITE_LINKS.map((l) => (
+            <a key={l.slug} href={l.url} className="text-slate-300 hover:text-[#38B6FF] transition-colors">
+              {l.audience}
+            </a>
+          ))}
+        </nav>
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 pb-10 border-b border-slate-800/60">
           

@@ -13,6 +13,8 @@ import {
   ExternalLink
 } from 'lucide-react';
 import { LEGAL_AGENTS } from '../data/legalQueriesData.ts';
+import { ComparisonSection } from './ComparisonSection.tsx';
+import { HERO, RETURNING_TERMS_LAWYERS } from '../content/audience.ts';
 
 interface HeroResultProps {
   onGoToQueries: () => void;
@@ -25,14 +27,7 @@ export const HeroResult: React.FC<HeroResultProps> = ({
   onGoToPricing,
   onSelectSample
 }) => {
-  const docTypes = [
-    'tu derecho de petición',
-    'tu acción de tutela',
-    'tu incidente de desacato',
-    'tu contrato blindado',
-    'tu reclamación ante la SIC',
-    'tu liquidación laboral'
-  ];
+  const docTypes = RETURNING_TERMS_LAWYERS;
 
   const [termIndex, setTermIndex] = useState(0);
 
@@ -61,14 +56,14 @@ export const HeroResult: React.FC<HeroResultProps> = ({
         {/* Brand Value Eyebrow */}
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#F0F9FF] border border-[#38B6FF]/30 text-[#0072b2] text-xs font-semibold mb-6 shadow-xs">
           <span className="w-2 h-2 rounded-full bg-[#38B6FF] animate-pulse" />
-          <span>Radical Honesty · Legal Accessibility · Efficiency</span>
+          <span>{HERO[1].eyebrow}</span>
         </div>
 
         {/* Brand Headline from Page 2 of Brand Book */}
         <h1 className="font-space font-extrabold text-4xl sm:text-6xl lg:text-7xl tracking-tight text-[#1E293B] leading-[1.08] max-w-4xl mx-auto">
-          Tú pones los hechos.{' '}
+          {HERO[1].headline}{' '}
           <span className="block text-[#1E293B]">
-            Nosotros ponemos el derecho.
+            {HERO[1].headlineAccent}
           </span>
         </h1>
 
@@ -81,12 +76,12 @@ export const HeroResult: React.FC<HeroResultProps> = ({
           >
             {docTypes[termIndex]}
           </span>
-          <span className="text-slate-500 font-normal">listo para radicar.</span>
+          <span className="text-slate-500 font-normal">listo para revisar y radicar.</span>
         </div>
 
         {/* Brand Overview Paragraph */}
         <p className="mt-6 sm:mt-8 text-base sm:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed font-sans font-normal">
-          Legal-IA es la plataforma de <strong>Service-as-Software</strong> en Colombia que genera documentos jurídicos con rigor de socio de firma e interroga <strong>11 registros oficiales</strong> en tiempo real. Sin horas facturables y sin suscripciones forzadas.
+          {HERO[1].lead}
         </p>
 
         {/* Primary CTAs with Impeccable Craft */}
@@ -131,96 +126,17 @@ export const HeroResult: React.FC<HeroResultProps> = ({
 
       </section>
 
-      {/* Section: The Three Paths Comparison (Clear, airy, high contrast) */}
-      <section id="como-funciona" className="mt-28 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div className="text-center max-w-2xl mx-auto mb-14">
-          <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#0072b2] bg-[#F0F9FF] px-3 py-1 rounded-full border border-[#38B6FF]/30">
-            La Tercera Opción
-          </span>
-          <h2 className="font-space font-extrabold text-3xl sm:text-4xl text-[#1E293B] mt-3">
-            Hasta hoy solo existían dos caminos insatisfactorios
-          </h2>
-          <p className="text-slate-600 text-sm sm:text-base mt-2">
-            El software tradicional te cobra mensualidades para que trabajes más. Legal-IA asume la ejecución del trabajo.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          
-          {/* Card 1: Abogado Tradicional */}
-          <div className="bg-[#F8FAFC] border border-slate-200 rounded-2xl p-7 flex flex-col justify-between transition-all hover:border-slate-300">
-            <div>
-              <div className="flex items-center justify-between mb-4">
-                <span className="text-xs font-mono font-bold text-slate-500 uppercase">01 · Camino Histórico</span>
-                <span className="text-sm font-mono text-rose-600 font-bold">Costoso</span>
-              </div>
-              <h3 className="font-space font-bold text-xl text-[#1E293B]">
-                Abogado tradicional
-              </h3>
-              <p className="text-sm text-slate-600 mt-3 leading-relaxed">
-                Pagas honorarios elevados (~$800.000 COP por consulta o tutela básica) y esperas semanas por un primer borrador redactado manualmente.
-              </p>
-            </div>
-            <div className="mt-6 pt-4 border-t border-slate-200 text-xs font-medium text-slate-500">
-              Inaccesible para el 70% de los colombianos.
-            </div>
-          </div>
-
-          {/* Card 2: IA Genérica */}
-          <div className="bg-[#F8FAFC] border border-slate-200 rounded-2xl p-7 flex flex-col justify-between transition-all hover:border-slate-300">
-            <div>
-              <div className="flex items-center justify-between mb-4">
-                <span className="text-xs font-mono font-bold text-slate-500 uppercase">02 · Chatbots Genéricos</span>
-                <span className="text-sm font-mono text-amber-600 font-bold">Riesgoso</span>
-              </div>
-              <h3 className="font-space font-bold text-xl text-[#1E293B]">
-                IA genérica (ChatGPT, etc.)
-              </h3>
-              <p className="text-sm text-slate-600 mt-3 leading-relaxed">
-                Alucina sentencias que no existen, cita artículos derogados por el CGP o CPACA y no puede interrogar en vivo el RUES, RUNT o SAMAI.
-              </p>
-            </div>
-            <div className="mt-6 pt-4 border-t border-slate-200 text-xs font-medium text-slate-500">
-              Peligroso para actuaciones procesales formales.
-            </div>
-          </div>
-
-          {/* Card 3: Legal-IA (Highlighted, Impeccable) */}
-          <div className="bg-white border-2 border-[#38B6FF] rounded-2xl p-7 flex flex-col justify-between shadow-[0_10px_35px_rgba(56,182,255,0.18)] relative transition-all hover:-translate-y-0.5">
-            <div className="absolute -top-3 left-6 bg-[#38B6FF] text-[#1E293B] font-space font-bold text-[10px] tracking-wider uppercase px-3 py-0.5 rounded-full shadow-xs">
-              Service as Software
-            </div>
-            <div>
-              <div className="flex items-center justify-between mb-4">
-                <span className="text-xs font-mono font-bold text-[#0072b2] uppercase">03 · Solución Legal-IA</span>
-                <span className="text-sm font-mono text-emerald-600 font-bold">Instantáneo</span>
-              </div>
-              <h3 className="font-space font-extrabold text-2xl text-[#1E293B]">
-                Legal-IA Service
-              </h3>
-              <p className="text-sm text-slate-700 mt-3 leading-relaxed">
-                Describes tu caso en lenguaje natural. Los 5 agentes investigan la normativa colombiana, cruzan 11 registros oficiales y entregan el documento listo para radicar.
-              </p>
-            </div>
-            <div className="mt-6 pt-4 border-t border-[#38B6FF]/20 text-xs font-semibold text-[#0072b2]">
-              Riguroso, verificado a nov 2026 y 100% Pay As You Go.
-            </div>
-          </div>
-
-        </div>
-
-      </section>
+      <ComparisonSection variant={1} theme="light" />
 
       {/* Section: Tu Documento en 3 Pasos */}
       <section className="mt-28 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div className="text-center max-w-xl mx-auto mb-14">
           <h2 className="font-space font-extrabold text-3xl sm:text-4xl text-[#1E293B]">
-            Tu documento en 3 pasos simples
+            Tu flujo de trabajo en 3 pasos
           </h2>
           <p className="text-slate-600 text-sm sm:text-base mt-2">
-            De un problema relatado en tus palabras a una pieza procesal radicable.
+            De los hechos de tu cliente a una pieza procesal lista para tu revisión.
           </p>
         </div>
 
@@ -235,7 +151,7 @@ export const HeroResult: React.FC<HeroResultProps> = ({
               Describe tu caso
             </h3>
             <p className="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
-              Cuéntale a Legal-IA lo que sucedió en tus palabras. La IA te hace preguntas clave de contexto, exactamente como un abogado sénior.
+              Cuéntale a Legal-IA los hechos del caso. La IA te hace las preguntas clave de contexto, como lo haría un abogado sénior de tu equipo.
             </p>
           </div>
 
@@ -261,7 +177,7 @@ export const HeroResult: React.FC<HeroResultProps> = ({
               Recibe tu documento
             </h3>
             <p className="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
-              Descargas tu tutela, derecho de petición o contrato estructurado en PDF oficial y formato editable, con hechos, pretensiones y pruebas listos.
+              Descargas la tutela, el derecho de petición o el contrato en PDF y formato editable, con hechos, pretensiones y pruebas listos para tu revisión.
             </p>
           </div>
 
@@ -277,7 +193,7 @@ export const HeroResult: React.FC<HeroResultProps> = ({
             Arquitectura Cognitiva
           </span>
           <h2 className="font-space font-extrabold text-3xl sm:text-4xl text-[#1E293B] mt-3">
-            El Director de Orquesta y sus 5 Agentes Especialistas
+            El Director de Orquesta y sus {LEGAL_AGENTS.length} Agentes Especialistas
           </h2>
           <p className="text-slate-600 text-sm sm:text-base mt-2">
             No es un solo modelo adivinando. Es una orquesta coordinada donde cada agente audita y refina la respuesta.
@@ -306,7 +222,7 @@ export const HeroResult: React.FC<HeroResultProps> = ({
         </div>
 
         {/* 5 Specialists Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {LEGAL_AGENTS.map((agent) => (
             <div
               key={agent.code}

@@ -56,6 +56,10 @@ export const RechargeModal: React.FC<RechargeModalProps> = ({
               <div
                 key={tier.id}
                 onClick={() => {
+                  if (tier.contactSales) {
+                    window.open('https://wa.me/573012303249?text=Interesado%20en%20el%20plan%20Corporativo', '_blank', 'noopener');
+                    return;
+                  }
                   onSelectTier(tier.credits, tier.name, tier.priceUSD);
                   onClose();
                 }}
@@ -83,10 +87,13 @@ export const RechargeModal: React.FC<RechargeModalProps> = ({
 
                 <div className="text-right shrink-0 pl-4">
                   <div className="font-space font-bold text-base text-white">
-                    ${tier.priceUSD} USD
+                    ${tier.priceUSD} USD{tier.monthly ? ' / mes' : ''}
                   </div>
                   <div className="text-xs font-mono text-[#38b6ff] font-bold">
-                    {tier.credits} Créditos
+                    {tier.credits} Créditos{tier.monthly ? ' / mes' : ''}
+                  </div>
+                  <div className="text-[10px] text-slate-400">
+                    {tier.setupFeeUSD ? `+ US$${tier.setupFeeUSD} de setup · hablar con ventas` : ''}
                   </div>
                 </div>
               </div>

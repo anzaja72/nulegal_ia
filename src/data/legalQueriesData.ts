@@ -29,6 +29,12 @@ export interface PricingTier {
   credits: number;
   costPerCreditUSD: number;
   popular?: boolean;
+  /** Cargo único de implementación (USD), p. ej. cargue de la información de la empresa. */
+  setupFeeUSD?: number;
+  /** true = se factura cada mes; false/undefined = pago único de créditos. */
+  monthly?: boolean;
+  /** true = no se compra en línea: se activa hablando con ventas. */
+  contactSales?: boolean;
   idealFor: string;
   features: string[];
 }
@@ -87,13 +93,17 @@ export const PAY_AS_YOU_GO_TIERS: PricingTier[] = [
     priceUSD: 180,
     credits: 1000,
     costPerCreditUSD: 0.18,
-    idealFor: 'Grandes firmas, entidades bancarias e inmobiliarias',
+    setupFeeUSD: 500,
+    monthly: true,
+    contactSales: true,
+    idealFor: 'Empresas, firmas grandes y entidades que exigen un entorno exclusivo',
     features: [
-      '1,000 créditos con máximo rendimiento por consulta',
-      'Prioridad de ejecución en fuentes de alta concurrencia',
-      'Acceso multi-usuario concurrente ilimitado',
-      'Módulo catastral IGAC con distribución transaccional',
-      'Gerente de cuenta legal dedicado y SLA garantizado'
+      'US$500 de setup único: cargue de la información de tu empresa',
+      'Alojamiento de modelo exclusivo para tu empresa',
+      'Acceso solo desde el dominio empresarial',
+      '1.000 créditos cada mes por US$180 (US$0,18 por crédito)',
+      'Acceso multi-usuario concurrente',
+      'Módulo catastral IGAC con distribución transaccional'
     ]
   }
 ];
@@ -639,6 +649,14 @@ export const LEGAL_AGENTS = [
     avatar: '🛡️',
     description: 'Vigila oposiciones en la SIC, clases de Niza y diseña defensas de signos distintivos y patentes.',
     tools: ['Superintendencia SIC', 'Gaceta de PI', 'Clases Niza']
+  },
+  {
+    code: 'TRIB-06',
+    name: 'Tributar-ia',
+    role: 'Especialista Tributario y Contable',
+    avatar: '🧾',
+    description: 'Resuelve consultas tributarias y contables con la doctrina de la DIAN con texto íntegro y los datos de comercio exterior de un NIT.',
+    tools: ['DIAN Doctrina', 'DIAN Comercio exterior', 'DIAN Directorio']
   }
 ];
 

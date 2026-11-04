@@ -31,7 +31,7 @@ export default function App({ variant }: AppProps) {
   // Starting balance: 200 credits (mandated $40 = 200 credits plan)
   const [credits, setCredits] = useState<number>(200);
   const [isRechargeModalOpen, setIsRechargeModalOpen] = useState(false);
-  const [preselectedQueryId, setPreselectedQueryId] = useState<string>('antecedentes');
+  const [preselectedQueryId, setPreselectedQueryId] = useState<string>(variant === 3 ? 'tributario-comercio' : 'antecedentes');
   const [toastMessage, setToastMessage] = useState<{ text: string; type: 'success' | 'info' | 'error' } | null>(null);
 
   const showToast = (text: string, type: 'success' | 'info' | 'error' = 'success') => {
@@ -72,8 +72,8 @@ export default function App({ variant }: AppProps) {
       window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
-    // En las otras versiones la consola en vivo vive en su propia URL.
-    window.location.assign(`${import.meta.env.BASE_URL}en-vivo/`);
+    // Fuera de la consola de demostración, el chat real vive en chat.legal-ia.co.
+    window.location.assign('https://chat.legal-ia.co/w/chat/signup');
   };
 
   const scrollToSection = (id: string) => {
@@ -131,7 +131,7 @@ export default function App({ variant }: AppProps) {
         )}
 
         {/* Document Types Grid (Common across views) */}
-        <DocumentTypesGrid onDraftClick={handleDraftDocumentInChat} />
+        <DocumentTypesGrid variant={variant} onDraftClick={handleDraftDocumentInChat} />
 
         {/* November 2026 Tested Queries Catalog & Interactive Executor */}
         <QueriesExplorer2026

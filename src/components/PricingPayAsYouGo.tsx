@@ -16,6 +16,8 @@ interface PricingPayAsYouGoProps {
   onPurchaseTier: (credits: number, tierName: string, priceUSD: number) => void;
 }
 
+const CORPORATE_SALES_URL = 'https://wa.me/573012303249?text=Interesado%20en%20el%20plan%20Corporativo';
+
 export const PricingPayAsYouGo: React.FC<PricingPayAsYouGoProps> = ({ onPurchaseTier }) => {
   // Calculator state
   const [antecedentesCount, setAntecedentesCount] = useState(15);
@@ -58,7 +60,7 @@ export const PricingPayAsYouGo: React.FC<PricingPayAsYouGoProps> = ({ onPurchase
         <div className="text-center max-w-3xl mx-auto">
           <div className="inline-flex items-center gap-2 bg-[#38b6ff]/10 border border-[#38b6ff]/30 px-4 py-1.5 rounded-full text-xs text-[#38b6ff] font-mono tracking-wider uppercase mb-4">
             <Coins className="w-3.5 h-3.5 text-[#38b6ff]" />
-            <span>100% Pay As You Go · Sin mensualidades ni suscripciones</span>
+            <span>Pay As You Go · Sin suscripciones en los packs de créditos</span>
           </div>
 
           <h2 className="font-space font-extrabold text-3xl sm:text-5xl lg:text-6xl text-white tracking-tight leading-tight">
@@ -259,64 +261,65 @@ export const PricingPayAsYouGo: React.FC<PricingPayAsYouGoProps> = ({ onPurchase
             </div>
           </div>
 
-          {/* Card 3: Corporativo ($180 USD = 1,000 créditos) */}
+          {/* Card 3: Corporativo (setup único + mensualidad, modelo exclusivo) */}
           <div className="bg-[#1E293B]/80 border border-slate-700/80 rounded-[22px] p-8 flex flex-col justify-between transition-all duration-300 hover:border-slate-600">
             <div>
               <div className="flex items-center justify-between mb-2">
                 <h3 className="font-space font-bold text-xl text-white">
                   Corporativo
                 </h3>
+                <ShieldCheck className="w-5 h-5 text-[#38b6ff]" />
               </div>
               <p className="text-xs text-slate-400 min-h-[36px]">
-                Firmas grandes, departamentos in-house e inmobiliarias
+                Empresas y firmas que necesitan un entorno exclusivo
               </p>
-
               <div className="mt-6 pb-6 border-b border-slate-700">
                 <div className="flex items-baseline gap-1.5">
                   <span className="text-4xl font-extrabold font-space text-white">$180</span>
                   <span className="text-xs font-mono text-slate-400">USD</span>
-                  <span className="text-[11px] text-slate-400 ml-1">/ Pago único</span>
+                  <span className="text-[11px] text-slate-400 ml-1">/ mes</span>
                 </div>
                 <div className="mt-2 flex items-center justify-between text-xs">
-                  <span className="font-space font-bold text-white">1,000 Créditos</span>
+                  <span className="font-space font-bold text-white">1,000 Créditos / mes</span>
                   <span className="text-slate-400 text-[11px] font-mono">$0.18 USD / cr</span>
                 </div>
+                <div className="mt-3 text-[11px] text-[#38b6ff] font-semibold">
+                  + Setup único de US$500
+                </div>
               </div>
-
               <ul className="mt-6 space-y-3 text-xs text-slate-300">
                 <li className="flex items-start gap-2">
                   <Check className="w-3.5 h-3.5 text-[#38b6ff] shrink-0 mt-0.5" />
-                  <span>1,000 créditos transferibles al equipo</span>
+                  <span>Setup: cargue de la información de tu empresa</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <Check className="w-3.5 h-3.5 text-[#38b6ff] shrink-0 mt-0.5" />
-                  <span>Máximo ahorro: $0.18 USD por crédito</span>
+                  <span>Alojamiento de modelo exclusivo para tu empresa</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <Check className="w-3.5 h-3.5 text-[#38b6ff] shrink-0 mt-0.5" />
-                  <span>Módulo IGAC catastral y SAGRILAFT</span>
+                  <span>Acceso solo desde el dominio empresarial</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <Check className="w-3.5 h-3.5 text-[#38b6ff] shrink-0 mt-0.5" />
-                  <span>Facturación electrónica con NIT y soporte prioritario</span>
+                  <span>Acceso multi-usuario y módulo catastral IGAC</span>
                 </li>
               </ul>
             </div>
-
             <div className="mt-8 pt-4">
-              <button
-                type="button"
-                onClick={() => onPurchaseTier(1000, 'Pack Corporativo', 180)}
-                className="w-full bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 font-bold text-xs py-3 rounded-xl transition-all cursor-pointer font-space"
+              <a
+                href={CORPORATE_SALES_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block w-full text-center bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 font-bold text-xs py-3 rounded-xl transition-all cursor-pointer font-space"
               >
-                Cargar 1,000 créditos ($180)
-              </button>
+                Hablar con ventas
+              </a>
               <div className="text-[10px] text-center text-slate-500 mt-2 font-mono">
-                Pay As You Go · Sin vencimiento
+                US$500 de setup + US$180 al mes
               </div>
             </div>
           </div>
-
         </div>
 
         {/* Interactive Credit Consumption Calculator */}
@@ -445,10 +448,18 @@ export const PricingPayAsYouGo: React.FC<PricingPayAsYouGoProps> = ({ onPurchase
               </div>
               <button
                 type="button"
-                onClick={() => onPurchaseTier(recommendedTier.credits, recommendedTier.name, recommendedTier.priceUSD)}
+                onClick={() => {
+                  if (recommendedTier.contactSales) {
+                    window.open(CORPORATE_SALES_URL, '_blank', 'noopener');
+                    return;
+                  }
+                  onPurchaseTier(recommendedTier.credits, recommendedTier.name, recommendedTier.priceUSD);
+                }}
                 className="mt-3 bg-[#38b6ff] hover:bg-[#20a4f5] text-[#1E293B] font-bold text-xs py-2 px-3 rounded-lg transition-all cursor-pointer font-space"
               >
-                Cargar {recommendedTier.credits} créditos por ${recommendedTier.priceUSD} USD
+                {recommendedTier.contactSales
+                  ? `Hablar con ventas (US$${recommendedTier.setupFeeUSD} setup + US$${recommendedTier.priceUSD}/mes)`
+                  : `Cargar ${recommendedTier.credits} créditos por $${recommendedTier.priceUSD} USD`}
               </button>
             </div>
 

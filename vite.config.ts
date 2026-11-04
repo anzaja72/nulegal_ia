@@ -11,15 +11,13 @@ export default defineConfig(() => {
         '@': path.resolve(__dirname, '.'),
       },
     },
-    // Una página real por versión (sin selector ni reescrituras de servidor):
-    //   /resultado/  /manifiesto/  /en-vivo/   (y / con el índice de versiones)
+    // Tres páginas de entrada; scripts/prerender.mjs las separa en un sitio por dominio (dist-sites/).
     build: {
       rollupOptions: {
         input: {
-          index: path.resolve(__dirname, 'index.html'),
-          resultado: path.resolve(__dirname, 'resultado/index.html'),
-          manifiesto: path.resolve(__dirname, 'manifiesto/index.html'),
-          'en-vivo': path.resolve(__dirname, 'en-vivo/index.html'),
+          resultado: path.resolve(__dirname, 'resultado.html'),
+          manifiesto: path.resolve(__dirname, 'manifiesto.html'),
+          'en-vivo': path.resolve(__dirname, 'en-vivo.html'),
         },
       },
     },

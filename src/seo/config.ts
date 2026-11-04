@@ -2,14 +2,16 @@ import { PAY_AS_YOU_GO_TIERS, NOVEMBER_2026_QUERIES, QUERY_COST_GUIDE } from '..
 
 /**
  * Única fuente de verdad del SEO/GEO. El prerender (scripts/prerender.mjs) la usa para
- * generar <head>, JSON-LD, sitemap.xml, robots.txt y llms.txt.
+ * generar <head>, JSON-LD, sitemap.xml, robots.txt y llms.txt de CADA sitio.
  *
- * Dominio público: se define con la variable SITE_URL al compilar
- *   SITE_URL=https://legal-ia.co npm run build
+ * Cada versión de la landing es un sitio independiente en su propio dominio:
+ *   legal-ia.co              → abogados            (slug "resultado",  variante 1)
+ *   emprendedor.legal-ia.co  → emprendedores/pymes (slug "manifiesto", variante 2)
+ *   contador.legal-ia.co     → contadores          (slug "en-vivo",    variante 3)
+ * El dominio base se puede cambiar al compilar:  SITE_DOMAIN=otro-dominio.com npm run build
  */
-export const SITE_URL = (
-  (typeof process !== 'undefined' && process.env?.SITE_URL) || 'https://legal-ia.co'
-).replace(/\/$/, '');
+export const SITE_DOMAIN =
+  (typeof process !== 'undefined' && process.env?.SITE_DOMAIN) || 'legal-ia.co';
 
 export const SITE_NAME = 'Legal-IA';
 export const LAST_UPDATED = '2026-11-04';
@@ -17,55 +19,72 @@ export const LAST_UPDATED_LABEL = '4 de noviembre de 2026';
 export const OG_IMAGE = '/og-image.png';
 export const LOGO = '/logo.png';
 
-export interface PageSeo {
+export interface SiteSeo {
   slug: 'resultado' | 'manifiesto' | 'en-vivo';
-  path: string;
+  variant: 1 | 2 | 3;
+  host: string;
+  /** URL canónica (raíz del sitio). */
+  url: string;
+  /** Carpeta de salida en dist-sites/ (una por sitio de Netlify). */
+  outDir: string;
+  audience: string;
   title: string;
   description: string;
-  /**
-   * Las tres versiones comparten casi todo su contenido. Para no competir entre sí en Google,
-   * /manifiesto/ y /en-vivo/ declaran como canónica a /resultado/ (siguen funcionando y se
-   * pueden usar en campañas). Para indexarlas por separado, pon aquí su propio `path`.
-   */
-  canonicalPath: string;
   indexable: boolean;
 }
 
-export const PAGES: PageSeo[] = [
+export const SITES: SiteSeo[] = [
   {
     slug: 'resultado',
-    path: '/resultado/',
-    title: 'Legal-IA · Documentos jurídicos con IA para Colombia',
+    variant: 1,
+    host: SITE_DOMAIN,
+    url: `https://${SITE_DOMAIN}/`,
+    outDir: 'legal-ia',
+    audience: 'Abogados y firmas',
+    title: 'Legal-IA · Copiloto jurídico para abogados en Colombia',
     description:
-      'Describe tu caso y recibe tu derecho de petición o tutela listo para radicar. Consulta 11 registros oficiales de Colombia. Desde US$25, sin suscripción.',
-    canonicalPath: '/resultado/',
+      'Acelera tu flujo de trabajo: Legal-IA redacta el primer borrador de tutelas y peticiones y verifica partes en 11 registros oficiales. Privacidad ZDR, desde US$25.',
     indexable: true,
   },
   {
     slug: 'manifiesto',
-    path: '/manifiesto/',
-    title: 'Legal-IA · Servicio jurídico automatizado para Colombia',
+    variant: 2,
+    host: `emprendedor.${SITE_DOMAIN}`,
+    url: `https://emprendedor.${SITE_DOMAIN}/`,
+    outDir: 'emprendedor',
+    audience: 'Emprendedores y pymes',
+    title: 'Legal-IA para emprendedores y pymes en Colombia',
     description:
-      'Legal-IA convierte el trabajo de un abogado en un servicio: redacta tutelas y peticiones y consulta 11 registros oficiales. Pagas por uso, sin suscripción.',
-    canonicalPath: '/resultado/',
+      'Un área jurídica 24/7 sin nómina de abogados: documentos listos y verificación de proveedores y clientes en registros oficiales. Pagas solo lo que usas.',
     indexable: true,
   },
   {
     slug: 'en-vivo',
-    path: '/en-vivo/',
-    title: 'Legal-IA · Consola en vivo de consultas jurídicas',
+    variant: 3,
+    host: `contador.${SITE_DOMAIN}`,
+    url: `https://contador.${SITE_DOMAIN}/`,
+    outDir: 'contador',
+    audience: 'Contadores y asesores tributarios',
+    title: 'Tributar-ia · Especialista tributario para contadores',
     description:
-      'Prueba la consola de Legal-IA: consulta antecedentes, sociedades, vehículos, marcas y contratos del Estado en fuentes oficiales de Colombia. Pagas por uso.',
-    canonicalPath: '/resultado/',
+      'Consulta la doctrina de la DIAN con texto íntegro y 10 años de comercio exterior de un NIT. Pagas por consulta, con privacidad ZDR.',
     indexable: true,
   },
 ];
 
-export const abs = (path: string) => `${SITE_URL}${path}`;
+/** Enlaces entre sitios (footer): enlazado interno útil para usuarios y buscadores. */
+export const SITE_LINKS = SITES.map((s) => ({ audience: s.audience, url: s.url, slug: s.slug }));
+
+export const MAIN_URL = SITES[0].url.replace(/\/$/, '');
+export const abs = (site: SiteSeo, path: string) => `${site.url.replace(/\/$/, '')}${path}`;
 
 /* ---------------- Preguntas frecuentes (visibles en la página y en JSON-LD) ---------------- */
 
-const tierLine = PAY_AS_YOU_GO_TIERS.map((t) => `US$${t.priceUSD} = ${t.credits} créditos`).join('; ');
+const tierLine = PAY_AS_YOU_GO_TIERS.map((t) =>
+  t.monthly
+    ? `US$${t.priceUSD} al mes = ${t.credits} créditos${t.setupFeeUSD ? `, más US$${t.setupFeeUSD} de setup inicial` : ''} (plan Corporativo)`
+    : `US$${t.priceUSD} = ${t.credits} créditos`
+).join('; ');
 const queryTitles = NOVEMBER_2026_QUERIES.map((q) => q.title);
 
 export const FAQ: { q: string; a: string }[] = [
@@ -79,7 +98,15 @@ export const FAQ: { q: string; a: string }[] = [
   },
   {
     q: '¿Cuánto cuesta Legal-IA?',
-    a: `Todos los planes son pay as you go: compras créditos y pagas solo lo que usas, sin suscripción mensual. ${tierLine}. Redactar un documento cuesta 5 créditos y la mayoría de las consultas a registros cuestan entre 1 y 3.`,
+    a: `Los packs de créditos son pay as you go: compras créditos y pagas solo lo que usas, sin suscripción mensual. ${tierLine}. El plan Corporativo incluye alojamiento de modelo exclusivo y acceso solo desde el dominio de tu empresa. Redactar un documento cuesta 5 créditos y la mayoría de las consultas a registros cuestan entre 1 y 3.`,
+  },
+  {
+    q: '¿Qué pasa con la privacidad de mis datos?',
+    a: 'Legal-IA opera con ZDR (Zero Data Retention): lo que escribes y los documentos que generas no se almacenan en el proveedor del modelo ni se usan para entrenarlo. Con una IA genérica como ChatGPT tus datos pueden compartirse para entrenamiento, y cargar datos de clientes o de terceros implica el riesgo de incumplir la Ley 1581 de 2012 (Habeas Data).',
+  },
+  {
+    q: '¿Qué es Tributar-ia?',
+    a: 'Tributar-ia es el especialista tributario y contable de Legal-IA. Consulta la doctrina de la DIAN (conceptos, oficios y providencias) con el texto íntegro y los datos de comercio exterior de un NIT, y apoya a contadores y asesores en sus consultas tributarias.',
   },
   {
     q: '¿Qué registros oficiales puedo consultar?',
@@ -101,12 +128,13 @@ export const FAQ: { q: string; a: string }[] = [
 
 /* ---------------- JSON-LD ---------------- */
 
-const orgId = `${SITE_URL}/#organization`;
-const siteId = `${SITE_URL}/#website`;
-const appId = `${SITE_URL}/#app`;
+const orgId = `${MAIN_URL}/#organization`;
 
-export function jsonLd(page: PageSeo) {
-  const url = abs(page.path);
+export function jsonLd(site: SiteSeo) {
+  const base = site.url.replace(/\/$/, '');
+  const siteId = `${base}/#website`;
+  const appId = `${base}/#app`;
+  const pageId = `${base}/#webpage`;
   return {
     '@context': 'https://schema.org',
     '@graph': [
@@ -114,16 +142,16 @@ export function jsonLd(page: PageSeo) {
         '@type': 'Organization',
         '@id': orgId,
         name: SITE_NAME,
-        url: SITE_URL + '/',
-        logo: { '@type': 'ImageObject', url: abs(LOGO), width: 512, height: 512 },
+        url: MAIN_URL + '/',
+        logo: { '@type': 'ImageObject', url: `${MAIN_URL}${LOGO}`, width: 512, height: 512 },
         slogan: 'Tú pones los hechos. Nosotros ponemos el derecho.',
         areaServed: { '@type': 'Country', name: 'Colombia' },
       },
       {
         '@type': 'WebSite',
         '@id': siteId,
-        url: SITE_URL + '/',
-        name: SITE_NAME,
+        url: site.url,
+        name: `${SITE_NAME} · ${site.audience}`,
         inLanguage: 'es-CO',
         publisher: { '@id': orgId },
       },
@@ -131,39 +159,50 @@ export function jsonLd(page: PageSeo) {
         '@type': 'WebApplication',
         '@id': appId,
         name: SITE_NAME,
-        url: SITE_URL + '/',
+        url: site.url,
         applicationCategory: 'BusinessApplication',
         operatingSystem: 'Web',
         inLanguage: 'es-CO',
+        audience: { '@type': 'Audience', audienceType: site.audience },
         description:
-          'Plataforma jurídica automatizada para Colombia: redacta documentos legales y consulta registros oficiales desde un chat.',
+          'Plataforma jurídica automatizada para Colombia: redacta documentos legales y consulta registros oficiales desde un chat, con privacidad ZDR (Zero Data Retention).',
         provider: { '@id': orgId },
         areaServed: { '@type': 'Country', name: 'Colombia' },
         offers: PAY_AS_YOU_GO_TIERS.map((t) => ({
           '@type': 'Offer',
-          name: `${t.name}: ${t.credits} créditos`,
+          name: `${t.name}: ${t.credits} créditos${t.monthly ? ' al mes' : ''}`,
           price: t.priceUSD,
           priceCurrency: 'USD',
-          description: t.idealFor,
-          url: abs('/resultado/') + '#pricing',
+          description: t.setupFeeUSD
+            ? `${t.idealFor}. Incluye un setup inicial de US$${t.setupFeeUSD}.`
+            : t.idealFor,
+          url: `${site.url}#pricing`,
           availability: 'https://schema.org/InStock',
+          ...(t.setupFeeUSD
+            ? {
+                priceSpecification: [
+                  { '@type': 'UnitPriceSpecification', price: t.priceUSD, priceCurrency: 'USD', billingDuration: 1, unitCode: 'MON' },
+                  { '@type': 'PriceSpecification', name: 'Setup inicial', price: t.setupFeeUSD, priceCurrency: 'USD' },
+                ],
+              }
+            : {}),
         })),
       },
       {
         '@type': 'WebPage',
-        '@id': `${url}#webpage`,
-        url,
-        name: page.title,
-        description: page.description,
+        '@id': pageId,
+        url: site.url,
+        name: site.title,
+        description: site.description,
         inLanguage: 'es-CO',
         isPartOf: { '@id': siteId },
         about: { '@id': appId },
-        primaryImageOfPage: { '@type': 'ImageObject', url: abs(OG_IMAGE) },
+        primaryImageOfPage: { '@type': 'ImageObject', url: `${base}${OG_IMAGE}` },
         dateModified: LAST_UPDATED,
       },
       {
         '@type': 'FAQPage',
-        '@id': `${url}#faq`,
+        '@id': `${base}/#faq`,
         mainEntity: FAQ.map((f) => ({
           '@type': 'Question',
           name: f.q,

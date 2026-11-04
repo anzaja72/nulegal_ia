@@ -1,4 +1,5 @@
 import React from 'react';
+import { DOCS_SECTION, Variant } from '../content/audience.ts';
 import {
   FileText,
   ShieldAlert,
@@ -12,10 +13,11 @@ import {
 } from 'lucide-react';
 
 interface DocumentTypesGridProps {
+  variant: Variant;
   onDraftClick: (docName: string) => void;
 }
 
-export const DocumentTypesGrid: React.FC<DocumentTypesGridProps> = ({ onDraftClick }) => {
+export const DocumentTypesGrid: React.FC<DocumentTypesGridProps> = ({ variant, onDraftClick }) => {
   const documents = [
     {
       title: 'Acción de Tutela en Salud',
@@ -68,14 +70,14 @@ export const DocumentTypesGrid: React.FC<DocumentTypesGridProps> = ({ onDraftCli
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
           <div>
             <span className="text-xs font-mono font-bold text-[#0284C7] uppercase tracking-wider block mb-2">
-              GENERACIÓN PROCESAL & CONTRACTUAL AUTÓNOMA
+              {DOCS_SECTION[variant].kicker}
             </span>
             <h2 className="font-space font-extrabold text-3xl sm:text-4xl text-[#1E293B] tracking-tight">
-              Documentos Definitivos Listos para Radicar
+              {DOCS_SECTION[variant].title}
             </h2>
           </div>
           <p className="text-sm text-slate-600 max-w-md mt-3 md:mt-0 leading-relaxed">
-            No son plantillas prefabricadas. Legal-IA redacta cada acápite integrando tus hechos particulares con la jurisprudencia de las altas cortes y normatividad vigente.
+            {DOCS_SECTION[variant].intro}
           </p>
         </div>
 
