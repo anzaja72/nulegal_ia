@@ -30,7 +30,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         {/* Brand Group with Official Logo */}
         <div className="flex items-center gap-3">
           <LegalIALogo
-            size={34}
+            size={40}
             variant={isDark ? 'sky' : 'sky'}
             className="hover:scale-105 transition-transform"
           />

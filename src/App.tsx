@@ -5,7 +5,6 @@
 
 import React, { useState } from 'react';
 import { Navbar } from './components/Navbar.tsx';
-import { FloatingSelector } from './components/FloatingSelector.tsx';
 import { HeroResult } from './components/HeroResult.tsx';
 import { HeroManifesto } from './components/HeroManifesto.tsx';
 import { HeroLiveInteractive } from './components/HeroLiveInteractive.tsx';
@@ -16,12 +15,17 @@ import { RechargeModal } from './components/RechargeModal.tsx';
 import { Footer } from './components/Footer.tsx';
 import { CheckCircle2, AlertCircle, Sparkles } from 'lucide-react';
 
-export default function App() {
-  // Variant corresponds to the 3 perspective views from the reference design:
-  // 1: "1 · El Resultado"
-  // 2: "2 · Manifiesto"
-  // 3: "3 · En Vivo"
-  const [variant, setVariant] = useState<1 | 2 | 3>(1);
+interface AppProps {
+  /**
+   * Cada versión se publica en su propia URL (ver vite.config.ts):
+   * 1: /resultado/  ("El Resultado")
+   * 2: /manifiesto/ ("Manifiesto")
+   * 3: /en-vivo/    ("En Vivo")
+   */
+  variant: 1 | 2 | 3;
+}
+
+export default function App({ variant }: AppProps) {
   
   // Starting balance: 200 credits (mandated $40 = 200 credits plan)
   const [credits, setCredits] = useState<number>(200);
@@ -62,9 +66,13 @@ export default function App() {
   };
 
   const handleDraftDocumentInChat = (docName: string) => {
-    setVariant(3);
-    showToast(`Iniciando redacción de ${docName} en la consola en vivo.`, 'info');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (variant === 3) {
+      showToast(`Iniciando redacción de ${docName} en la consola en vivo.`, 'info');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+    // En las otras versiones la consola en vivo vive en su propia URL.
+    window.location.assign(`${import.meta.env.BASE_URL}en-vivo/`);
   };
 
   const scrollToSection = (id: string) => {
@@ -135,15 +143,6 @@ export default function App() {
         {/* 100% Pay As You Go Pricing Section ($40 = 200 credits) */}
         <PricingPayAsYouGo onPurchaseTier={handlePurchaseTier} />
       </main>
-
-      {/* Floating Bottom Perspective Selector (1 · El Resultado | 2 · Manifiesto | 3 · En Vivo) */}
-      <FloatingSelector
-        variant={variant}
-        onSelectVariant={(v) => {
-          setVariant(v);
-          window.scrollTo(0, 0);
-        }}
-      />
 
       {/* Pay As You Go Recharge Modal */}
       <RechargeModal
