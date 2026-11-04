@@ -3,19 +3,40 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Legal-IA · Service as Software Jurídico</title>
-    <meta name="description" content="Plataforma jurídica premium Service as Software para Colombia con consultas a registros oficiales en tiempo real y planes Pay As You Go." />
-    <meta property="og:title" content="Legal-IA · Service as Software Jurídico" />
-    <meta property="og:description" content="Plataforma jurídica premium Service as Software para Colombia con consultas a registros oficiales en tiempo real y planes Pay As You Go." />
-    <meta property="og:type" content="website" />
-    <meta name="twitter:card" content="summary_large_image" />
+    <title>Legal-IA · Versiones</title>
+    <meta name="robots" content="noindex" />
+    <link rel="icon" type="image/png" sizes="32x32" href="%BASE_URL%favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="%BASE_URL%favicon-16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="%BASE_URL%apple-touch-icon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+    <style>
+      :root { --sky:#38B6FF; --navy:#1E293B; }
+      * { box-sizing: border-box; }
+      body { margin:0; min-height:100vh; background:var(--sky); color:var(--navy); font:500 17px/1.6 'Plus Jakarta Sans',system-ui,sans-serif; display:grid; place-items:center; padding:24px; }
+      main { width:100%; max-width:720px; }
+      img { width:72px; height:72px; display:block; }
+      h1 { font:700 clamp(2rem,6vw,3.4rem)/1.05 'Space Grotesk',system-ui,sans-serif; letter-spacing:-.035em; margin:28px 0 12px; }
+      p { margin:0 0 32px; max-width:46ch; }
+      ul { list-style:none; margin:0; padding:0; display:grid; gap:12px; }
+      a { display:flex; align-items:baseline; justify-content:space-between; gap:16px; padding:18px 24px; background:#fff; color:var(--navy); text-decoration:none; border-radius:20px; font:600 1.15rem 'Space Grotesk',system-ui,sans-serif; transition:background .2s,color .2s; }
+      a span { font:500 .92rem 'Plus Jakarta Sans',system-ui,sans-serif; opacity:.8; }
+      a:hover { background:var(--navy); color:#fff; }
+      a:focus-visible { outline:3px solid var(--navy); outline-offset:3px; }
+      @media (max-width:520px){ a { flex-direction:column; gap:2px; } }
+    </style>
   </head>
-  <body class="bg-[#0c1424] text-slate-100 antialiased selection:bg-[#38b6ff]/30 selection:text-white">
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+  <body>
+    <main>
+      <img src="%BASE_URL%logo.png" alt="Legal-IA" width="72" height="72" />
+      <h1>Elige una versión de Legal-IA</h1>
+      <p>Cada versión tiene su propia dirección y funciona de forma independiente.</p>
+      <ul>
+        <li><a href="%BASE_URL%resultado/">El Resultado <span>/resultado/</span></a></li>
+        <li><a href="%BASE_URL%manifiesto/">Manifiesto <span>/manifiesto/</span></a></li>
+        <li><a href="%BASE_URL%en-vivo/">En Vivo <span>/en-vivo/</span></a></li>
+      </ul>
+    </main>
   </body>
 </html>
-

@@ -14,6 +14,7 @@ import {
   Building2,
   Loader2
 } from 'lucide-react';
+import { LegalIALogo } from './LegalIALogo.tsx';
 import { NOVEMBER_2026_QUERIES } from '../data/legalQueriesData.ts';
 
 interface Message {
@@ -182,9 +183,7 @@ export const InteractiveChatLive: React.FC<InteractiveChatLiveProps> = ({
       {/* Console Top Bar */}
       <div className="bg-[#090e1a] px-6 py-4 border-b border-slate-800 flex items-center justify-between">
         <div className="flex items-center space-x-3">
-          <div className="w-8 h-8 rounded-lg bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400">
-            <Bot className="w-4 h-4" />
-          </div>
+          <LegalIALogo size={32} variant="sky" />
           <div>
             <div className="flex items-center space-x-2">
               <span className="font-space font-bold text-white text-sm">Consola Chat Legal-IA</span>
