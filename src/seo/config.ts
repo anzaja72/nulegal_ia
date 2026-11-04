@@ -122,6 +122,10 @@ export const FAQ: { q: string; a: string }[] = [
     a: 'Escribe el número de radicado de 23 dígitos en el chat de Legal-IA. El chat revisa los estados de los últimos 5 días hábiles y te dice si el proceso se movió. Si salió en estado, te da el número de estado, la fecha y la anotación del auto. También consulta la información del proceso publicada en la Rama Judicial: estado, despacho, partes y actuaciones recientes.',
   },
   {
+    q: '¿Necesito una suscripción para consultar estados y procesos?',
+    a: 'No. La consulta de estados y procesos por radicado es pay as you go: cada consulta cuesta 3 créditos y pagas solo las que haces. Un pack de US$25 (100 créditos) alcanza para 33 consultas y uno de US$40 (200 créditos) para 66. No hay mensualidad ni plan que activar.',
+  },
+  {
     q: '¿Qué es el radicado de 23 dígitos?',
     a: 'Es el número que identifica un proceso judicial en Colombia. Sus bloques indican la ciudad o municipio, la corporación, la especialidad, el despacho, el año, el consecutivo y la instancia.',
   },

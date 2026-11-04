@@ -64,8 +64,8 @@ export const PAY_AS_YOU_GO_TIERS: PricingTier[] = [
     popular: true,
     idealFor: 'Litigantes, consultores y pequeñas firmas',
     features: [
-      '200 créditos sin fecha de expiración (Plan Mandatario)',
-      'Acceso completo a LEGAL-IA PRO (Radicación 23 dígitos)',
+      '200 créditos sin fecha de expiración',
+      'Estados y procesos por radicado de 23 dígitos (3 créditos por consulta)',
       'Dossiers completos de sociedades (RUES + Supersociedades)',
       'Expedientes de marcas y patentes SIC',
       'Auditoría de contratación SECOP I y II (94 variables)',
@@ -145,7 +145,7 @@ export const QUERY_COST_GUIDE = [
     description: '94 datos por contrato, adiciones, pagos, interventor y PAA'
   },
   {
-    type: 'Procesos Judiciales LEGAL-IA PRO (23 dígitos & Estados)',
+    type: 'Procesos Judiciales (23 dígitos & Estados de los últimos 5 días hábiles)',
     credits: 3,
     description: 'Historial completo de actuaciones, despacho, partes y autos en estados'
   },
@@ -530,7 +530,7 @@ export const NOVEMBER_2026_QUERIES: LegalQueryCategory[] = [
   {
     id: 'procesos-judiciales',
     number: 10,
-    title: 'Procesos judiciales (LEGAL-IA PRO)',
+    title: 'Procesos judiciales y estados',
     subtitle: 'Radicación de 23 dígitos y verificación de notificaciones por Estados electrónicos.',
     creditCost: 3,
     sampleInputPlaceholder: 'Ej: 11001310300120230045600 (23 dígitos)',

@@ -30,7 +30,7 @@ interface AppProps {
 
 export default function App({ variant }: AppProps) {
   
-  // Starting balance: 200 credits (mandated $40 = 200 credits plan)
+  // Starting balance: 200 credits ($40 = 200 credits, pay as you go)
   const [credits, setCredits] = useState<number>(200);
   const [isRechargeModalOpen, setIsRechargeModalOpen] = useState(false);
   const [preselectedQueryId, setPreselectedQueryId] = useState<string>(variant === 3 ? 'tributario-comercio' : variant === 4 ? 'procesos-judiciales' : 'antecedentes');

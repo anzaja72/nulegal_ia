@@ -76,7 +76,7 @@ export const RechargeModal: React.FC<RechargeModalProps> = ({
                     </span>
                     {isMandated && (
                       <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-[#38b6ff] text-[#1E293B] font-mono">
-                        RECOMENDADO · MANDATARIO
+                        RECOMENDADO
                       </span>
                     )}
                   </div>

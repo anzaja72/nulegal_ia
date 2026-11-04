@@ -86,7 +86,7 @@ export const Footer: React.FC = () => {
               <li>SECOP I y II (94 variables)</li>
               <li>DIAN Comercio Exterior & Doctrina</li>
               <li>Consejo de Estado SAMAI</li>
-              <li>LEGAL-IA PRO: Procesos 23 dígitos</li>
+              <li>Procesos por radicado de 23 dígitos</li>
               <li>Notificaciones por Estados Electrónicos</li>
               <li>Directorio Despachos & IGAC Catastral</li>
             </ul>

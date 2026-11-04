@@ -105,7 +105,7 @@ export const InteractiveChatLive: React.FC<InteractiveChatLiveProps> = ({
     } else if (text.toLowerCase().includes('proceso') || text.toLowerCase().includes('radicad') || text.includes('11001310')) {
       requiredCost = 3;
       categoryMatch = NOVEMBER_2026_QUERIES.find((q) => q.id === 'procesos-judiciales')!;
-      agentName = 'Lex Litigia (LEGAL-IA PRO)';
+      agentName = 'Lex Litigia';
     } else if (text.toLowerCase().includes('nit') || text.toLowerCase().includes('rues') || text.toLowerCase().includes('camara') || text.toLowerCase().includes('sociedad')) {
       requiredCost = 2;
       categoryMatch = NOVEMBER_2026_QUERIES.find((q) => q.id === 'sociedad')!;

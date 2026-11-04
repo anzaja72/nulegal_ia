@@ -189,10 +189,10 @@ export const PricingPayAsYouGo: React.FC<PricingPayAsYouGoProps> = ({ onPurchase
             </div>
           </div>
 
-          {/* Card 2: Profesional ★ Mandatario ($40 USD = 200 créditos) HIGHLIGHTED */}
+          {/* Card 2: Profesional ★ Recomendado ($40 USD = 200 créditos, pago por uso) HIGHLIGHTED */}
           <div className="bg-gradient-to-b from-[#1E293B] to-[#0F172A] border-2 border-[#38b6ff] rounded-[22px] p-8 flex flex-col justify-between relative shadow-[0_0_40px_rgba(56,182,255,0.25)] scale-[1.03] z-10">
             <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-[#38b6ff] text-[#1E293B] font-extrabold text-[11px] px-4 py-1 rounded-full shadow-md uppercase tracking-wider font-mono">
-              ★ RECOMENDADO · MANDATARIO
+              ★ RECOMENDADO
             </div>
 
             <div>
@@ -229,7 +229,7 @@ export const PricingPayAsYouGo: React.FC<PricingPayAsYouGoProps> = ({ onPurchase
                 </li>
                 <li className="flex items-start gap-2">
                   <Check className="w-3.5 h-3.5 text-[#38b6ff] shrink-0 mt-0.5" />
-                  <span>Acceso full LEGAL-IA PRO (23 dígitos & Estados)</span>
+                  <span>Estados y procesos por radicado: 3 créditos por consulta</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <Check className="w-3.5 h-3.5 text-[#38b6ff] shrink-0 mt-0.5" />
@@ -249,7 +249,7 @@ export const PricingPayAsYouGo: React.FC<PricingPayAsYouGoProps> = ({ onPurchase
             <div className="mt-8 pt-4">
               <button
                 type="button"
-                onClick={() => onPurchaseTier(200, 'Pack Profesional Mandatario', 40)}
+                onClick={() => onPurchaseTier(200, 'Pack Profesional', 40)}
                 className="w-full bg-[#38b6ff] hover:bg-[#20a4f5] text-[#1E293B] font-extrabold text-xs py-3.5 rounded-xl transition-all cursor-pointer shadow-md flex items-center justify-center gap-1.5 font-space"
               >
                 <span>Cargar 200 créditos ($40 USD)</span>

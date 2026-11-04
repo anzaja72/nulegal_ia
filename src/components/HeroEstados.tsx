@@ -109,7 +109,8 @@ export const HeroEstados: React.FC<HeroEstadosProps> = ({
                   'Si salió en estado: número de estado, fecha y anotación del auto',
                   'Búsqueda por radicado en los procesos publicados en la Rama Judicial',
                   'Estado, despacho, partes y actuaciones recientes en una sola respuesta',
-                  'ZDR (Zero Data Retention): los datos de tus clientes no se retienen'
+                  'ZDR (Zero Data Retention): los datos de tus clientes no se retienen',
+                  'Sin suscripción: pagas 3 créditos por consulta (US$40 = 200 créditos, alcanzan para 66 consultas)'
                 ].map((t) => (
                   <li key={t} className="flex items-start gap-2.5">
                     <CheckCircle2 className="w-4 h-4 text-[#38B6FF] shrink-0 mt-0.5" />
@@ -131,7 +132,7 @@ export const HeroEstados: React.FC<HeroEstadosProps> = ({
                   onClick={onGoToPricing}
                   className="bg-white hover:bg-slate-50 border border-slate-300 text-slate-700 text-sm font-semibold px-5 py-3.5 rounded-xl transition-all cursor-pointer"
                 >
-                  Ver precios · {COST} créditos por consulta
+                  Pay as you go · {COST} créditos por consulta
                 </button>
               </div>
             </div>
