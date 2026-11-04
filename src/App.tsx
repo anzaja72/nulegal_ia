@@ -12,6 +12,7 @@ import { QueriesExplorer2026 } from './components/QueriesExplorer2026.tsx';
 import { PricingPayAsYouGo } from './components/PricingPayAsYouGo.tsx';
 import { DocumentTypesGrid } from './components/DocumentTypesGrid.tsx';
 import { RechargeModal } from './components/RechargeModal.tsx';
+import { FaqSection } from './components/FaqSection.tsx';
 import { Footer } from './components/Footer.tsx';
 import { CheckCircle2, AlertCircle, Sparkles } from 'lucide-react';
 
@@ -142,6 +143,9 @@ export default function App({ variant }: AppProps) {
 
         {/* 100% Pay As You Go Pricing Section ($40 = 200 credits) */}
         <PricingPayAsYouGo onPurchaseTier={handlePurchaseTier} />
+
+        {/* FAQ + catálogo crawleable (SEO/GEO) */}
+        <FaqSection />
       </main>
 
       {/* Pay As You Go Recharge Modal */}

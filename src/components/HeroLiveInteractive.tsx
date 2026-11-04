@@ -392,6 +392,7 @@ export const HeroLiveInteractive: React.FC<HeroLiveInteractiveProps> = ({
                   />
                   <button
                     type="submit"
+                    aria-label="Enviar consulta"
                     disabled={!inputVal.trim() || isTyping}
                     className="bg-[#38B6FF] hover:bg-[#20a4f5] disabled:opacity-40 text-[#1E293B] font-bold p-2.5 rounded-xl transition-all cursor-pointer shadow-md"
                   >
