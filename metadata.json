@@ -1,0 +1,6 @@
+{
+  "name": "Legal-IA · Service as Software",
+  "description": "Plataforma jurídica premium Service as Software para Colombia con consultas a registros oficiales en tiempo real y planes Pay As You Go.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
