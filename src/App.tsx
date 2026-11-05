@@ -99,8 +99,6 @@ export default function App({ variant }: AppProps) {
       {/* Floating Pill Navbar */}
       <Navbar
         variant={variant}
-        credits={credits}
-        onOpenRechargeModal={() => setIsRechargeModalOpen(true)}
         onOpenQueries={() => scrollToSection('consultas-2026')}
       />
 

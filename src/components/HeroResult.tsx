@@ -72,7 +72,7 @@ export const HeroResult: React.FC<HeroResultProps> = ({
           <span className="text-slate-500 font-normal">Recibe</span>
           <span
             key={termIndex}
-            className="animate-word-flip inline-block text-[#38B6FF] relative underline decoration-[#38B6FF]/40 decoration-wavy decoration-2 underline-offset-8"
+            className="animate-word-flip inline-block text-[#38B6FF] relative"
           >
             {docTypes[termIndex]}
           </span>

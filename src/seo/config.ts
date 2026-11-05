@@ -111,7 +111,7 @@ export const FAQ: { q: string; a: string }[] = [
   },
   {
     q: '¿Cuánto cuesta Legal-IA?',
-    a: `Los packs de créditos son pay as you go: compras créditos y pagas solo lo que usas, sin suscripción mensual. ${tierLine}. El plan Corporativo incluye alojamiento de modelo exclusivo y acceso solo desde el dominio de tu empresa. Redactar un documento cuesta 5 créditos y la mayoría de las consultas a registros cuestan entre 1 y 3.`,
+    a: `Hay un plan gratis de $0 con hasta 10 documentos al mes, solo para derechos de petición, tutelas o acciones constitucionales del ciudadano, sin tarjeta. Los packs de créditos son pay as you go: compras créditos y pagas solo lo que usas, sin suscripción mensual. ${tierLine}. El plan Corporativo incluye alojamiento de modelo exclusivo y acceso solo desde el dominio de tu empresa. Redactar un documento cuesta 5 créditos y la mayoría de las consultas a registros cuestan entre 1 y 3.`,
   },
   {
     q: '¿Qué pasa con la privacidad de mis datos?',
@@ -193,7 +193,18 @@ export function jsonLd(site: SiteSeo) {
           'Plataforma jurídica automatizada para Colombia: redacta documentos legales y consulta registros oficiales desde un chat, con privacidad ZDR (Zero Data Retention).',
         provider: { '@id': orgId },
         areaServed: { '@type': 'Country', name: 'Colombia' },
-        offers: PAY_AS_YOU_GO_TIERS.map((t) => ({
+        offers: [
+          {
+            '@type': 'Offer',
+            name: 'Plan Gratis',
+            price: 0,
+            priceCurrency: 'USD',
+            description:
+              'Hasta 10 documentos al mes: derechos de petición, tutelas o acciones constitucionales del ciudadano. Sin tarjeta de crédito.',
+            url: 'https://free.legal-ia.co/',
+            availability: 'https://schema.org/InStock',
+          },
+          ...PAY_AS_YOU_GO_TIERS.map((t) => ({
           '@type': 'Offer',
           name: `${t.name}: ${t.credits} créditos${t.monthly ? ' al mes' : ''}`,
           price: t.priceUSD,
@@ -212,6 +223,7 @@ export function jsonLd(site: SiteSeo) {
               }
             : {}),
         })),
+        ],
       },
       {
         '@type': 'WebPage',

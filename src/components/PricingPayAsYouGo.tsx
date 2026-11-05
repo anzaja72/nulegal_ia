@@ -17,6 +17,8 @@ interface PricingPayAsYouGoProps {
 }
 
 const CORPORATE_SALES_URL = 'https://wa.me/573012303249?text=Interesado%20en%20el%20plan%20Corporativo';
+const FREE_URL = 'https://free.legal-ia.co/';
+const CHAT_URL = 'https://chat.legal-ia.co/';
 
 export const PricingPayAsYouGo: React.FC<PricingPayAsYouGoProps> = ({ onPurchaseTier }) => {
   // Calculator state
@@ -78,37 +80,36 @@ export const PricingPayAsYouGo: React.FC<PricingPayAsYouGoProps> = ({ onPurchase
         {/* 4 Pricing Cards Grid (Exact 22px border radius & 32px padding) */}
         <div className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
           
-          {/* Card 0: Gratuito / Bienvenida */}
+          {/* Card 0: Plan Gratis */}
           <div className="bg-[#1E293B]/80 border border-slate-700/80 rounded-[22px] p-8 flex flex-col justify-between transition-all duration-300 hover:border-slate-600">
             <div>
               <div className="flex items-center justify-between mb-2">
                 <h3 className="font-space font-bold text-xl text-white">
-                  Prueba Gratis
+                  Plan Gratis
                 </h3>
                 <Gift className="w-5 h-5 text-[#38b6ff]" />
               </div>
               <p className="text-xs text-slate-400 min-h-[36px]">
-                Tu primer documento o consultas de prueba de bienvenida
+                Hasta 10 documentos · análisis de PDF e imágenes · comunidad
               </p>
-
               <div className="mt-6 pb-6 border-b border-slate-700">
                 <div className="flex items-baseline gap-1.5">
                   <span className="text-4xl font-extrabold font-space text-white">$0</span>
                   <span className="text-xs font-mono text-slate-400">USD</span>
                 </div>
-                <div className="mt-2 text-xs font-space font-bold text-[#38b6ff]">
-                  5 Créditos de bienvenida
-                </div>
               </div>
-
               <ul className="mt-6 space-y-3 text-xs text-slate-300">
                 <li className="flex items-start gap-2">
                   <Check className="w-3.5 h-3.5 text-[#38b6ff] shrink-0 mt-0.5" />
-                  <span>1 Derecho de petición o 5 consultas de antecedentes</span>
+                  <span>10 derechos de petición o 10 consultas jurídicas básicas</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <Check className="w-3.5 h-3.5 text-[#38b6ff] shrink-0 mt-0.5" />
-                  <span>Acceso a las 11 fuentes colombianas</span>
+                  <span>10 documentos mensuales</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="w-3.5 h-3.5 text-[#38b6ff] shrink-0 mt-0.5" />
+                  <span>Solo derechos de petición, tutelas o acciones constitucionales del ciudadano</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <Check className="w-3.5 h-3.5 text-[#38b6ff] shrink-0 mt-0.5" />
@@ -116,17 +117,15 @@ export const PricingPayAsYouGo: React.FC<PricingPayAsYouGoProps> = ({ onPurchase
                 </li>
               </ul>
             </div>
-
             <div className="mt-8 pt-4">
-              <button
-                type="button"
-                onClick={() => onPurchaseTier(5, 'Prueba Gratuita', 0)}
-                className="w-full bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 font-bold text-xs py-3 rounded-xl transition-all cursor-pointer font-space"
+              <a
+                href={FREE_URL}
+                className="block w-full text-center bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 font-bold text-xs py-3 rounded-xl transition-all cursor-pointer font-space"
               >
                 Comenzar gratis
-              </button>
+              </a>
               <div className="text-[10px] text-center text-slate-500 mt-2 font-mono">
-                5 créditos al instante
+                10 documentos al mes
               </div>
             </div>
           </div>
@@ -176,13 +175,12 @@ export const PricingPayAsYouGo: React.FC<PricingPayAsYouGoProps> = ({ onPurchase
             </div>
 
             <div className="mt-8 pt-4">
-              <button
-                type="button"
-                onClick={() => onPurchaseTier(100, 'Pack Por Uso', 25)}
-                className="w-full bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 font-bold text-xs py-3 rounded-xl transition-all cursor-pointer font-space"
+              <a
+                href={CHAT_URL}
+                className="block text-center w-full bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 font-bold text-xs py-3 rounded-xl transition-all cursor-pointer font-space"
               >
-                Cargar 100 créditos ($25)
-              </button>
+                Comprar 100 créditos ($25)
+              </a>
               <div className="text-[10px] text-center text-slate-500 mt-2 font-mono">
                 Pay As You Go · Sin vencimiento
               </div>
@@ -247,14 +245,13 @@ export const PricingPayAsYouGo: React.FC<PricingPayAsYouGoProps> = ({ onPurchase
             </div>
 
             <div className="mt-8 pt-4">
-              <button
-                type="button"
-                onClick={() => onPurchaseTier(200, 'Pack Profesional', 40)}
+              <a
+                href={CHAT_URL}
                 className="w-full bg-[#38b6ff] hover:bg-[#20a4f5] text-[#1E293B] font-extrabold text-xs py-3.5 rounded-xl transition-all cursor-pointer shadow-md flex items-center justify-center gap-1.5 font-space"
               >
-                <span>Cargar 200 créditos ($40 USD)</span>
+                <span>Comprar 200 créditos ($40 USD)</span>
                 <ArrowRight className="w-4 h-4" />
-              </button>
+              </a>
               <div className="text-[10px] text-center text-[#38b6ff] mt-2 font-mono font-bold">
                 100% Pay As You Go · Sin renovación automática
               </div>
@@ -453,13 +450,13 @@ export const PricingPayAsYouGo: React.FC<PricingPayAsYouGoProps> = ({ onPurchase
                     window.open(CORPORATE_SALES_URL, '_blank', 'noopener');
                     return;
                   }
-                  onPurchaseTier(recommendedTier.credits, recommendedTier.name, recommendedTier.priceUSD);
+                  window.open(CHAT_URL, '_blank', 'noopener');
                 }}
                 className="mt-3 bg-[#38b6ff] hover:bg-[#20a4f5] text-[#1E293B] font-bold text-xs py-2 px-3 rounded-lg transition-all cursor-pointer font-space"
               >
                 {recommendedTier.contactSales
                   ? `Hablar con ventas (US$${recommendedTier.setupFeeUSD} setup + US$${recommendedTier.priceUSD}/mes)`
-                  : `Cargar ${recommendedTier.credits} créditos por $${recommendedTier.priceUSD} USD`}
+                  : `Comprar ${recommendedTier.credits} créditos por $${recommendedTier.priceUSD} USD`}
               </button>
             </div>
 

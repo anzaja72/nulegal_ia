@@ -60,7 +60,7 @@ export const RechargeModal: React.FC<RechargeModalProps> = ({
                     window.open('https://wa.me/573012303249?text=Interesado%20en%20el%20plan%20Corporativo', '_blank', 'noopener');
                     return;
                   }
-                  onSelectTier(tier.credits, tier.name, tier.priceUSD);
+                  window.open('https://chat.legal-ia.co/', '_blank', 'noopener');
                   onClose();
                 }}
                 className={`p-4 rounded-xl border transition-all cursor-pointer flex items-center justify-between group ${
