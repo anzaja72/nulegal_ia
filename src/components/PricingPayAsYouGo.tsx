@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { PAY_AS_YOU_GO_TIERS, QUERY_COST_GUIDE } from '../data/legalQueriesData.ts';
+import { PAY_AS_YOU_GO_TIERS, QUERY_COST_GUIDE, checkoutUrlFor } from '../data/legalQueriesData.ts';
 import {
   Check,
   Sparkles,
@@ -176,10 +176,10 @@ export const PricingPayAsYouGo: React.FC<PricingPayAsYouGoProps> = ({ onPurchase
 
             <div className="mt-8 pt-4">
               <a
-                href={CHAT_URL}
+                href={checkoutUrlFor(25)}
                 className="block text-center w-full bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 font-bold text-xs py-3 rounded-xl transition-all cursor-pointer font-space"
               >
-                Comprar 100 créditos ($25)
+                Comprar
               </a>
               <div className="text-[10px] text-center text-slate-500 mt-2 font-mono">
                 Pay As You Go · Sin vencimiento
@@ -246,10 +246,10 @@ export const PricingPayAsYouGo: React.FC<PricingPayAsYouGoProps> = ({ onPurchase
 
             <div className="mt-8 pt-4">
               <a
-                href={CHAT_URL}
+                href={checkoutUrlFor(40)}
                 className="w-full bg-[#38b6ff] hover:bg-[#20a4f5] text-[#1E293B] font-extrabold text-xs py-3.5 rounded-xl transition-all cursor-pointer shadow-md flex items-center justify-center gap-1.5 font-space"
               >
-                <span>Comprar 200 créditos ($40 USD)</span>
+                <span>Comprar</span>
                 <ArrowRight className="w-4 h-4" />
               </a>
               <div className="text-[10px] text-center text-[#38b6ff] mt-2 font-mono font-bold">

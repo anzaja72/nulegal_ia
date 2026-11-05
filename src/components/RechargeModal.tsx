@@ -1,5 +1,5 @@
 import React from 'react';
-import { PAY_AS_YOU_GO_TIERS } from '../data/legalQueriesData.ts';
+import { PAY_AS_YOU_GO_TIERS, checkoutUrlFor } from '../data/legalQueriesData.ts';
 import { X, Check, ShieldCheck, Coins, Sparkles, ArrowRight } from 'lucide-react';
 
 interface RechargeModalProps {
@@ -60,7 +60,7 @@ export const RechargeModal: React.FC<RechargeModalProps> = ({
                     window.open('https://wa.me/573012303249?text=Interesado%20en%20el%20plan%20Corporativo', '_blank', 'noopener');
                     return;
                   }
-                  window.open('https://chat.legal-ia.co/', '_blank', 'noopener');
+                  window.open(checkoutUrlFor(tier.priceUSD), '_blank', 'noopener');
                   onClose();
                 }}
                 className={`p-4 rounded-xl border transition-all cursor-pointer flex items-center justify-between group ${
