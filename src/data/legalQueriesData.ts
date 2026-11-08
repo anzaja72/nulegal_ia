@@ -662,13 +662,12 @@ export const LEGAL_AGENTS = [
 
 
 /**
- * Enlaces de pago (Stripe Checkout) por precio en USD. Los packs sin enlace propio van al chat.
- * IMPORTANTE: los enlaces checkout.stripe.com/c/pay/cs_... son sesiones de Checkout y caducan.
- * Para un botón permanente usa un Payment Link (buy.stripe.com/...).
+ * Enlaces de pago (Stripe Payment Links, permanentes) por precio en USD.
+ * Los packs sin enlace propio van al chat.
  */
 export const CHAT_URL = 'https://chat.legal-ia.co/';
 export const CHECKOUT_URL_BY_PRICE: Record<number, string> = {
-  25: 'https://checkout.stripe.com/c/pay/cs_live_b1XlVQpygtjv5P8PYrI0UywH3zf5jWiaMa7zKNH5527ih79EBqgxhvoQyc#fidnandhYHdWcXxpYCc%2FJ2FgY2RwaXEnKSdicyc%2FNSkndnF3bHVgRGZmanBrcSc%2FJ2RmZnFaNFEySmRTV2gzSlVyN2RfZicpJ2R1bE5gfCc%2FJ3VuWmlsc2BaMDRLaGNRbUFBQEZVVkxKdnN8X1N3UlRVQGBuNzwxQ1A3UUhiTVBNb2hnYDRcNV9ONm9vcHRKbUZncm92TDBRbmxhNUFKXFRfYTRpMldcVHNWZ2lAU3RkXTU1NVVMSVBJaUY2JyknY3dqaFZgd3Ngdyc%2FcXdwYCknZ2RmbmJ3anBrYUZqaWp3Jz8nJmNjY2NjYycpJ2lkfGpwcVF8dWAnPydocGlxbFpscWBoJ3gl',
-  40: 'https://checkout.stripe.com/c/pay/cs_live_b1WA3Tb0JzTQShawrDafj8JfGOsAFu1dkVblHS2Nh9H7HViaqppiLmjnbd#fidnandhYHdWcXxpYCc%2FJ2FgY2RwaXEnKSdicyc%2FNSkndnF3bHVgRGZmanBrcSc%2FJ2RmZnFaNFEySmRTV2gzSlVyN2RfZicpJ2R1bE5gfCc%2FJ3VuWmlsc2BaMDRLaGNRbUFBQEZVVkxKdnN8X1N3UlRVQGBuNzwxQ1A3UUhiTVBNb2hnYDRcNV9ONm9vcHRKbUZncm92TDBRbmxhNUFKXFRfYTRpMldcVHNWZ2lAU3RkXTU1NVVMSVBJaUY2JyknY3dqaFZgd3Ngdyc%2FcXdwYCknZ2RmbmJ3anBrYUZqaWp3Jz8nJmNjY2NjYycpJ2lkfGpwcVF8dWAnPydocGlxbFpscWBoJ3gl',
+  25: 'https://buy.stripe.com/dRmcN762G3sX66L4t60Fi01',
+  40: 'https://buy.stripe.com/4gMcN7aiWfbFeDh6Be0Fi00',
 };
 export const checkoutUrlFor = (priceUSD: number): string => CHECKOUT_URL_BY_PRICE[priceUSD] ?? CHAT_URL;
